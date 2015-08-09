@@ -79,13 +79,11 @@ hist(plot1.data$steps,
 rug(plot1.data$steps)
 ```
 
-**Calculate and report mean and median number of steps per day**
-
+**Calculate and report mean and median number of steps per day:**
 ```{r, echo=TRUE}
-df <- as.data.frame(list(as.character(mean(plot1.data$steps)), median(plot1.data$steps)))
+df <- as.data.frame(list(mean(plot1.data$steps), median(plot1.data$steps)))
 names(df) <- c("Mean", "Median")
-require(pander)
-pander(df, caption="Calculated mean and median:") ## Output in a table format
+df
 ```
 
 ## What is the average daily activity pattern?

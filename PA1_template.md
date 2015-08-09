@@ -8,7 +8,6 @@ output:
 ## Downloading the data
 Activity data was obtained from the URL  <https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip>, stored and unzipped in a folder called 'data' in my R Studio work directory like this:
 
-
 ```r
 if (!file.exists("./data")) { # Create a data folder if needed
         dir.create("./data") 
@@ -92,24 +91,18 @@ rug(plot1.data$steps)
 
 ![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png) 
 
-**Calculate and report mean and median number of steps per day**
-
+**Calculate and report mean and median number of steps per day:**
 
 ```r
-df <- as.data.frame(list(as.character(mean(plot1.data$steps)), median(plot1.data$steps)))
+df <- as.data.frame(list(mean(plot1.data$steps), median(plot1.data$steps)))
 names(df) <- c("Mean", "Median")
-require(pander)
-pander(df, caption="Calculated mean and median:") ## Output in a table format
+df
 ```
 
-
--------------------------
-      Mean        Median 
----------------- --------
-10766.1886792453  10765  
--------------------------
-
-Table: Calculated mean and median:
+```
+##       Mean Median
+## 1 10766.19  10765
+```
 
 ## What is the average daily activity pattern?
 
@@ -150,7 +143,7 @@ plot2.data[which(plot2.data[, 2] == max(plot2.data[, 2])), ]
 
 ```
 ##     interval mean.of.steps
-## 104   08::35      206.1698
+## 104  08:::35      206.1698
 ```
 It is interval 104, original interval label 835 (i.e. 08:35-08.40), where the mean is 206.1698.
 
@@ -175,12 +168,12 @@ summary(activity)
 
 ```
 ##      steps             date               interval      dayofweek        
-##  Min.   :  0.00   Min.   :2012-10-01   00::00 :   61   Length:17568      
-##  1st Qu.:  0.00   1st Qu.:2012-10-16   00::05 :   61   Class :character  
-##  Median :  0.00   Median :2012-10-31   00::10 :   61   Mode  :character  
-##  Mean   : 37.38   Mean   :2012-10-31   00::15 :   61                     
-##  3rd Qu.: 12.00   3rd Qu.:2012-11-15   00::20 :   61                     
-##  Max.   :806.00   Max.   :2012-11-30   00::25 :   61                     
+##  Min.   :  0.00   Min.   :2012-10-01   00:::00:   61   Length:17568      
+##  1st Qu.:  0.00   1st Qu.:2012-10-16   00:::05:   61   Class :character  
+##  Median :  0.00   Median :2012-10-31   00:::10:   61   Mode  :character  
+##  Mean   : 37.38   Mean   :2012-10-31   00:::15:   61                     
+##  3rd Qu.: 12.00   3rd Qu.:2012-11-15   00:::20:   61                     
+##  Max.   :806.00   Max.   :2012-11-30   00:::25:   61                     
 ##  NA's   :2304                          (Other):17202
 ```
 It is only `steps` which has these NA values.
@@ -215,12 +208,12 @@ summary(activity.imputed)
 
 ```
 ##     interval      dayofweek             steps             date           
-##  00::00 :   61   Length:17568       Min.   :  0.00   Min.   :2012-10-01  
-##  00::05 :   61   Class :character   1st Qu.:  0.00   1st Qu.:2012-10-16  
-##  00::10 :   61   Mode  :character   Median :  0.00   Median :2012-10-31  
-##  00::15 :   61                      Mean   : 37.57   Mean   :2012-10-31  
-##  00::20 :   61                      3rd Qu.: 19.04   3rd Qu.:2012-11-15  
-##  00::25 :   61                      Max.   :806.00   Max.   :2012-11-30  
+##  00:::00:   61   Length:17568       Min.   :  0.00   Min.   :2012-10-01  
+##  00:::05:   61   Class :character   1st Qu.:  0.00   1st Qu.:2012-10-16  
+##  00:::10:   61   Mode  :character   Median :  0.00   Median :2012-10-31  
+##  00:::15:   61                      Mean   : 37.57   Mean   :2012-10-31  
+##  00:::20:   61                      3rd Qu.: 19.04   3rd Qu.:2012-11-15  
+##  00:::25:   61                      Max.   :806.00   Max.   :2012-11-30  
 ##  (Other):17202                                                           
 ##  mean.of.steps      steps.old     
 ##  Min.   :  0.00   Min.   :  0.00  
