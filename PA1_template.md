@@ -1,4 +1,9 @@
-# Reproducible Research: Peer Assessment 1
+---
+title: "Reproducible Research: Peer Assessment 1"
+output: 
+  html_document:
+    keep_md: true
+---
 
 ## Downloading the data
 Activity data was obtained from the URL  <https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip>, stored and unzipped in a folder called 'data' in my R Studio work directory like this:
@@ -40,13 +45,6 @@ activity$date <- as.Date(activity$date, format="%Y-%m-%d")
 
 activity$interval <- as.character(activity$interval)
 require(stringr) ## For str_pad() to simplify padding
-```
-
-```
-## Loading required package: stringr
-```
-
-```r
 activity$interval <- str_pad(activity$interval, 4, pad="0") ## pad so we get HHMM 
 activity$interval <- sub("([[:digit:]]{2,2})$", ":\\1", activity$interval) ##Insert colon to get HH:MM
 activity$interval <- as.factor(activity$interval)  ## Prepare it for inclusion in plot axis
@@ -91,7 +89,7 @@ hist(plot1.data$steps,
 rug(plot1.data$steps)
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-4-1.png) 
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png) 
 
 **Calculate and report mean and median number of steps per day:**
 
@@ -133,7 +131,7 @@ axis(side=1, at=lbl, labels=lbl)
 axis(side=2)
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-7-1.png) 
+![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-1.png) 
 
 
 **Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?**  
@@ -265,7 +263,7 @@ legend(14000,10,
        bty="n")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-14-1.png) 
+![plot of chunk unnamed-chunk-14](figure/unnamed-chunk-14-1.png) 
 
   
 The bins for 8000-10000 and 11000-13000 are those with an increase.  
@@ -346,6 +344,6 @@ xyplot(mean.of.steps ~ interval | partofweek, data=plot4.data,
        )
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-18-1.png) 
+![plot of chunk unnamed-chunk-18](figure/unnamed-chunk-18-1.png) 
 
 
