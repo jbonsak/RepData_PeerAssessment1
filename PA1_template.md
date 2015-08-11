@@ -1,9 +1,4 @@
----
-title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
----
+# Reproducible Research: Peer Assessment 1
 
 ## Downloading the data
 Activity data was obtained from the URL  <https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip>, stored and unzipped in a folder called 'data' in my R Studio work directory like this:
@@ -35,7 +30,7 @@ Note that the `setInternet2` option had to be set on my Windows 7 system for dow
 
 
 ## Reading data into R and preprocessing it
-The activity file has 17568 observations of three variables -  `date`, `interval` and `steps`. It is here read into the data frame `activity`. The date string is here converted to R date format. The interval comes as numbers from 0 to 2355. I made the assumption that this is hours and minutes, so here the interval variable is temporarily changed to character, string manipulated to get HH:MM and then reverted back to a factor for plotting. The last step of the preprocessing is inserting `dayofweek`. I do it already here because my approach requires this English weekday name both in the NA imputing and in the last plot.
+The activity file has 17568 observations of three variables -  `date`, `interval` and `steps`. It is here read into the data frame `activity`. The date string is then converted to R date format. The interval comes as numbers from 0 to 2355. I made the assumption that this is hours and minutes, so here the interval variable is temporarily changed to character, string manipulated to get HH:MM and then reverted back to a factor for plotting. The last step of the preprocessing is inserting `dayofweek`. I do it already here because my approach requires this English weekday name both in the NA imputing and in the last plot.
 
 
 ```r
@@ -45,6 +40,13 @@ activity$date <- as.Date(activity$date, format="%Y-%m-%d")
 
 activity$interval <- as.character(activity$interval)
 require(stringr) ## For str_pad() to simplify padding
+```
+
+```
+## Loading required package: stringr
+```
+
+```r
 activity$interval <- str_pad(activity$interval, 4, pad="0") ## pad so we get HHMM 
 activity$interval <- sub("([[:digit:]]{2,2})$", ":\\1", activity$interval) ##Insert colon to get HH:MM
 activity$interval <- as.factor(activity$interval)  ## Prepare it for inclusion in plot axis
@@ -89,7 +91,7 @@ hist(plot1.data$steps,
 rug(plot1.data$steps)
 ```
 
-![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-4-1.png) 
 
 **Calculate and report mean and median number of steps per day:**
 
@@ -131,7 +133,7 @@ axis(side=1, at=lbl, labels=lbl)
 axis(side=2)
 ```
 
-![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-7-1.png) 
 
 
 **Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?**  
@@ -143,7 +145,7 @@ plot2.data[which(plot2.data[, 2] == max(plot2.data[, 2])), ]
 
 ```
 ##     interval mean.of.steps
-## 104  08:::35      206.1698
+## 104    08:35      206.1698
 ```
 It is interval 104, original interval label 835 (i.e. 08:35-08.40), where the mean is 206.1698.
 
@@ -168,12 +170,12 @@ summary(activity)
 
 ```
 ##      steps             date               interval      dayofweek        
-##  Min.   :  0.00   Min.   :2012-10-01   00:::00:   61   Length:17568      
-##  1st Qu.:  0.00   1st Qu.:2012-10-16   00:::05:   61   Class :character  
-##  Median :  0.00   Median :2012-10-31   00:::10:   61   Mode  :character  
-##  Mean   : 37.38   Mean   :2012-10-31   00:::15:   61                     
-##  3rd Qu.: 12.00   3rd Qu.:2012-11-15   00:::20:   61                     
-##  Max.   :806.00   Max.   :2012-11-30   00:::25:   61                     
+##  Min.   :  0.00   Min.   :2012-10-01   00:00  :   61   Length:17568      
+##  1st Qu.:  0.00   1st Qu.:2012-10-16   00:05  :   61   Class :character  
+##  Median :  0.00   Median :2012-10-31   00:10  :   61   Mode  :character  
+##  Mean   : 37.38   Mean   :2012-10-31   00:15  :   61                     
+##  3rd Qu.: 12.00   3rd Qu.:2012-11-15   00:20  :   61                     
+##  Max.   :806.00   Max.   :2012-11-30   00:25  :   61                     
 ##  NA's   :2304                          (Other):17202
 ```
 It is only `steps` which has these NA values.
@@ -208,12 +210,12 @@ summary(activity.imputed)
 
 ```
 ##     interval      dayofweek             steps             date           
-##  00:::00:   61   Length:17568       Min.   :  0.00   Min.   :2012-10-01  
-##  00:::05:   61   Class :character   1st Qu.:  0.00   1st Qu.:2012-10-16  
-##  00:::10:   61   Mode  :character   Median :  0.00   Median :2012-10-31  
-##  00:::15:   61                      Mean   : 37.57   Mean   :2012-10-31  
-##  00:::20:   61                      3rd Qu.: 19.04   3rd Qu.:2012-11-15  
-##  00:::25:   61                      Max.   :806.00   Max.   :2012-11-30  
+##  00:00  :   61   Length:17568       Min.   :  0.00   Min.   :2012-10-01  
+##  00:05  :   61   Class :character   1st Qu.:  0.00   1st Qu.:2012-10-16  
+##  00:10  :   61   Mode  :character   Median :  0.00   Median :2012-10-31  
+##  00:15  :   61                      Mean   : 37.57   Mean   :2012-10-31  
+##  00:20  :   61                      3rd Qu.: 19.04   3rd Qu.:2012-11-15  
+##  00:25  :   61                      Max.   :806.00   Max.   :2012-11-30  
 ##  (Other):17202                                                           
 ##  mean.of.steps      steps.old     
 ##  Min.   :  0.00   Min.   :  0.00  
@@ -263,7 +265,7 @@ legend(14000,10,
        bty="n")
 ```
 
-![plot of chunk unnamed-chunk-14](figure/unnamed-chunk-14-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-14-1.png) 
 
   
 The bins for 8000-10000 and 11000-13000 are those with an increase.  
@@ -322,6 +324,13 @@ plot4.data <- aggregate(steps~interval+partofweek, data=activity.imputed, mean)
 names(plot4.data)[names(plot4.data)=="steps"] <- "mean.of.steps"
 
 require(lattice)
+```
+
+```
+## Loading required package: lattice
+```
+
+```r
 xyplot(mean.of.steps ~ interval | partofweek, data=plot4.data, 
        type="l", 
        layout=c(1,2),
@@ -337,6 +346,6 @@ xyplot(mean.of.steps ~ interval | partofweek, data=plot4.data,
        )
 ```
 
-![plot of chunk unnamed-chunk-18](figure/unnamed-chunk-18-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-18-1.png) 
 
 

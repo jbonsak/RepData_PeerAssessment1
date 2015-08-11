@@ -35,7 +35,7 @@ Note that the `setInternet2` option had to be set on my Windows 7 system for dow
 
 
 ## Reading data into R and preprocessing it
-The activity file has 17568 observations of three variables -  `date`, `interval` and `steps`. It is here read into the data frame `activity`. The date string is here converted to R date format. The interval comes as numbers from 0 to 2355. I made the assumption that this is hours and minutes, so here the interval variable is temporarily changed to character, string manipulated to get HH:MM and then reverted back to a factor for plotting. The last step of the preprocessing is inserting `dayofweek`. I do it already here because my approach requires this English weekday name both in the NA imputing and in the last plot.
+The activity file has 17568 observations of three variables -  `date`, `interval` and `steps`. It is here read into the data frame `activity`. The date string is then converted to R date format. The interval comes as numbers from 0 to 2355. I made the assumption that this is hours and minutes, so here the interval variable is temporarily changed to character, string manipulated to get HH:MM and then reverted back to a factor for plotting. The last step of the preprocessing is inserting `dayofweek`. I do it already here because my approach requires this English weekday name both in the NA imputing and in the last plot.
 
 ```{r, echo=TRUE}
 if (!exists("activity")) {activity <- read.csv("./data/activity.csv")} ## 17568 obs. of 3 variables
